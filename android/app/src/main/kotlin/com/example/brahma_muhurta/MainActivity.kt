@@ -1,4 +1,4 @@
-package com.example.brahma_muhurta
+package com.futrst.brahmamuhurta
 
 import io.flutter.embedding.android.FlutterActivity
 

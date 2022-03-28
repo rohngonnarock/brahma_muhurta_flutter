@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 
 class Loc {
@@ -25,7 +26,22 @@ Future<Loc> getGPSLocation() async {
   PermissionStatus _permissionGranted;
   LocationData _locationData;
 
-  _serviceEnabled = await location.serviceEnabled();
+  initLocation() async {
+    try {
+      _serviceEnabled = await location.serviceEnabled();
+      return _serviceEnabled;
+    } on PlatformException catch (err) {
+      print("Platform exception calling serviceEnabled(): $err");
+      _serviceEnabled = false;
+
+      // location service is still not created
+
+      initLocation(); // re-invoke himself every time the error is catch, so until the location service setup is complete
+    }
+    return false;
+  }
+
+  _serviceEnabled = await initLocation();
   if (!_serviceEnabled) {
     _serviceEnabled = await location.requestService();
     if (!_serviceEnabled) {
