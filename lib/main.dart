@@ -23,15 +23,23 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            LocationApp(),
-          ],
-        )),
+      home: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color.fromARGB(255, 131, 222, 207),
+          Color.fromRGBO(160, 148, 227, 1),
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              LocationApp(),
+            ],
+          )),
+        ),
       ),
     );
   }

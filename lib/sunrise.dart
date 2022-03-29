@@ -64,28 +64,35 @@ class _SunriseAppState extends State<SunriseApp> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           const textStyle = TextStyle(
-            fontSize: 20.0,
+            fontSize: 24.0,
           );
-          const mainTextStyle = TextStyle(
-            fontSize: 36.0,
-          );
-          return Column(
-            children: [
-              Text(
-                getMuhurtaLabel(snapshot.data!.today),
-                style: textStyle,
-              ),
-              Text(
-                getMuhurtatime(snapshot.data!.today, snapshot.data!.today,
-                    snapshot.data!.tomorrow),
-                style: mainTextStyle,
-              ),
-              Text(
-                timeLeftToMuhurta(snapshot.data!.today, snapshot.data!.today,
-                    snapshot.data!.tomorrow),
-                style: textStyle,
-              )
-            ],
+          const mainTextStyle =
+              TextStyle(fontSize: 44.0, fontWeight: FontWeight.bold);
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  getMuhurtaLabel(snapshot.data!.today),
+                  style: textStyle,
+                  textAlign: TextAlign.center,
+                ),
+                const Text(''),
+                Text(
+                  getMuhurtatime(snapshot.data!.today, snapshot.data!.today,
+                      snapshot.data!.tomorrow),
+                  style: mainTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+                const Text(''),
+                Text(
+                  timeLeftToMuhurta(snapshot.data!.today, snapshot.data!.today,
+                      snapshot.data!.tomorrow),
+                  style: textStyle,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
