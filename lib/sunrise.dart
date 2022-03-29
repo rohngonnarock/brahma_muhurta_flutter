@@ -50,6 +50,13 @@ class _SunriseAppState extends State<SunriseApp> {
         .format('h:mm:ss a');
   }
 
+  getMuhurtaLabel(final String sunriseTime) {
+    final isMuhratToday = muhuratBeforeTime(sunriseTime);
+    return isMuhratToday
+        ? "Today's Brahma Muhurta Time"
+        : "Tomorrow's Brahma Muhurta Time";
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Sunrise>(
@@ -65,9 +72,7 @@ class _SunriseAppState extends State<SunriseApp> {
           return Column(
             children: [
               Text(
-                muhuratBeforeTime(snapshot.data!.today)
-                    ? "Today's Brahma Muhurta Time"
-                    : "Tomorrow's Brahma Muhurta Time",
+                getMuhurtaLabel(snapshot.data!.today),
                 style: textStyle,
               ),
               Text(
