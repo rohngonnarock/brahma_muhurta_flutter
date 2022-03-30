@@ -18,17 +18,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var gradientBox = const BoxDecoration(
+        gradient: LinearGradient(colors: [
+      Color.fromARGB(255, 131, 222, 207),
+      Color.fromRGBO(160, 148, 227, 1),
+    ], begin: Alignment.topCenter, end: Alignment.bottomCenter));
+
+    // var imageBox = const BoxDecoration(
+    //   image: DecorationImage(
+    //       image: NetworkImage(
+    //           'https://images.unsplash.com/photo-1648563678346-d72fd33aa451?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'),
+    //       fit: BoxFit.cover),
+    // );
     return MaterialApp(
       title: 'Fetch Data Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Color.fromARGB(255, 131, 222, 207),
-          Color.fromRGBO(160, 148, 227, 1),
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        decoration: gradientBox,
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Center(

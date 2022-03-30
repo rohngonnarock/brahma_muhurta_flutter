@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'Modals/sun.dart';
+import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
 
 class SunriseApp extends StatefulWidget {
   final double lat;
@@ -57,6 +58,23 @@ class _SunriseAppState extends State<SunriseApp> {
         : "Tomorrow's Brahma Muhurta Time";
   }
 
+  getMuhurtaHour(final String time, final String today, final String tomorrow) {
+    final sunriseTime = muhuratBeforeTime(time) ? today : tomorrow;
+    final muhuratTime = Moment.fromDate(getLocalTime(sunriseTime))
+        .subtract(hours: 1, minutes: 36)
+        .format('h');
+    return int.parse(muhuratTime);
+  }
+
+  getMuhurtaMinute(
+      final String time, final String today, final String tomorrow) {
+    final sunriseTime = muhuratBeforeTime(time) ? today : tomorrow;
+    final muhuratTime = Moment.fromDate(getLocalTime(sunriseTime))
+        .subtract(hours: 1, minutes: 36)
+        .format('mm');
+    return int.parse(muhuratTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Sunrise>(
@@ -90,7 +108,32 @@ class _SunriseAppState extends State<SunriseApp> {
                       snapshot.data!.tomorrow),
                   style: textStyle,
                   textAlign: TextAlign.center,
-                )
+                ),
+                Container(
+                    margin: const EdgeInsets.only(top: 100.0),
+                    child: const Text('')),
+                ElevatedButton(
+                    onPressed: () => {
+                          FlutterAlarmClock.createAlarm(
+                              getMuhurtaHour(
+                                  snapshot.data!.today,
+                                  snapshot.data!.today,
+                                  snapshot.data!.tomorrow),
+                              getMuhurtaMinute(
+                                  snapshot.data!.today,
+                                  snapshot.data!.today,
+                                  snapshot.data!.tomorrow),
+                              title: "Brahma Muhurta Time")
+                        },
+                    child: const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Set Alarm',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    )),
               ],
             ),
           );
