@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:brahma_muhurta/sunrise.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'Modals/loc.dart';
 
 class LocationApp extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LocationAppState extends State<LocationApp> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.lat == 0.0 && snapshot.data!.long == 0.0) {
-            return const Text('Permission Denied');
+            return Text(translate('permission_denied'));
           }
           return SunriseApp(
             lat: snapshot.data!.lat,

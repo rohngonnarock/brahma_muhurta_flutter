@@ -22,3 +22,6 @@ flutter build appbundle --release
 
 flutter build apk
 flutter install
+
+flutter pub upgrade
+flutter pub outdated

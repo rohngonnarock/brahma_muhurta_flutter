@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:simple_moment/simple_moment.dart';
 import 'Modals/sun.dart';
 import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
@@ -17,6 +18,7 @@ class SunriseApp extends StatefulWidget {
 
 class _SunriseAppState extends State<SunriseApp> {
   late Future<Sunrise> sunriseData;
+  late String currentLocale = 'en_US';
 
   @override
   void initState() {
@@ -54,8 +56,8 @@ class _SunriseAppState extends State<SunriseApp> {
   getMuhurtaLabel(final String sunriseTime) {
     final isMuhratToday = muhuratBeforeTime(sunriseTime);
     return isMuhratToday
-        ? "Today's Brahma Muhurta Time"
-        : "Tomorrow's Brahma Muhurta Time";
+        ? translate('today_brahma_muhurat_time')
+        : translate('tomorrow_brahma_muhurat_time');
   }
 
   getMuhurtaHour(final String time, final String today, final String tomorrow) {
@@ -123,17 +125,26 @@ class _SunriseAppState extends State<SunriseApp> {
                                   snapshot.data!.today,
                                   snapshot.data!.today,
                                   snapshot.data!.tomorrow),
-                              title: "Brahma Muhurta Time")
+                              title: translate('brahm_muhrata_time'))
                         },
-                    child: const Padding(
-                      padding: EdgeInsets.all(10),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
                       child: Text(
-                        'Set Alarm',
-                        style: TextStyle(
+                        translate('set_alarm'),
+                        style: const TextStyle(
                           fontSize: 20.0,
                         ),
                       ),
                     )),
+                ElevatedButton(
+                    onPressed: () => {
+                          changeLocale(context, currentLocale),
+                          setState(() {
+                            currentLocale =
+                                currentLocale == "en_US" ? "en_US" : "hi_IN";
+                          })
+                        },
+                    child: Text(translate('change_current_language')))
               ],
             ),
           );
